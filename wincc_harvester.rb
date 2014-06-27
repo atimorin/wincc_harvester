@@ -42,7 +42,7 @@ class Metasploit3 < Msf::Auxiliary
 	def decrypt username, hash
 		key = "This is my encryptionkey"
 	    ascii = -> str { str .scan(/./)  .map{|c|c.ord} } # convert string to ascii array
-	    hex = -> num { num .scan(/../) .map{|n|n.to_i 16 if n.to_i>0} } # convert hex string to array
+	    hex = -> num { num .scan(/../) .map{|n|n.to_i 16} } # convert hex string to array
 	    key, hash = ascii.(key), hex.(hash) # remove 0x
 	
 	    username = ascii.(username.upcase) + [0] * (key.size - ascii.(username).size) # complements an array of zeroes element
